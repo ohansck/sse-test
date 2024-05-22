@@ -1,4 +1,4 @@
-const eventSource = new EventSource('http://localhost:8000')
+const eventSource = new EventSource('http://localhost:8000/sse')
 
 updateMessage = (message) => {
     const list = document.getElementById('messages');

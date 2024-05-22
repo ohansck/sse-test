@@ -4,6 +4,10 @@ const app = express();
 const port = 8000;
 
 app.get('/', (req, res) => {
+    console.log('Health check')
+    res.send('Hello World');
+});
+app.get('/sse', (req, res) => {
     console.log('New connection started');
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Access-Control-Allow-Origin', '*');
