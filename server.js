@@ -2,7 +2,12 @@ const express = require('express');
 const app = express();
 
 const port = 8000;
-
+function newDate() {
+    return new Intl.DateTimeFormat('en-GB', {
+        dateStyle: 'full',
+        timeStyle: 'long',
+    }).format(new Date());
+}
 app.get('/', (req, res) => {
     console.log('Health check')
     res.send('Hello World');
@@ -12,14 +17,10 @@ app.get('/sse', (req, res) => {
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Access-Control-Allow-Origin', '*');
 
+    res.write(`data: ${newDate()}\n\n`);
+
     const intervalId = setInterval(() => {
-
-        const newDate = new Intl.DateTimeFormat('en-GB', {
-            dateStyle: 'full',
-            timeStyle: 'long',
-        }).format(new Date());
-
-        res.write(`data: ${newDate}\n\n`);
+        res.write(`data: ${newDate()}\n\n`);
     }, 1000);
 
     res.on('close', () => {
